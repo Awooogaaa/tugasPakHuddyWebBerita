@@ -1,11 +1,14 @@
 <?php
 session_start();
-include "koneksi.php";
+include "koneksi.php"; // Ini adalah perbaikannya
 
 $isLogin = isset($_SESSION['username']);
 
 // --- LOGIKA PENCARIAN ---
-$search_term = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
+$search_term = '';
+if (isset($_GET['search'])) {
+    $search_term = mysqli_real_escape_string($conn, $_GET['search']);
+}
 $search_sql_where = '';
 if (!empty($search_term)) {
     $search_sql_where = " WHERE (b.judul LIKE '%$search_term%' OR b.isi LIKE '%$search_term%')";
