@@ -31,99 +31,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login - Portal Berita</title>
-    <!-- Added modern styling with consistent design system -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #f59e0b;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f8fafc;
-            --bg-white: #ffffff;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --primary-color: #007BFF;
+            --background-start: #1a2980;
+            --background-end: #26d0ce;
+            --form-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.2);
+            --input-border: rgba(255, 255, 255, 0.5);
         }
 
-        * {
+        *, *::before, *::after {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 1rem;
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
+            color: var(--text-color);
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="20" cy="80" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .login-container {
-            background: var(--bg-white);
-            padding: 3rem;
-            border-radius: 2rem;
-            box-shadow: var(--shadow-xl);
+            background: var(--form-bg);
+            padding: 2.5rem 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 450px;
-            position: relative;
-            border: 1px solid rgba(37, 99, 235, 0.1);
+            max-width: 420px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-out;
+            text-align: center;
         }
 
-
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
 
         .login-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .login-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .login-icon i {
-            font-size: 2rem;
-            color: white;
+            margin-bottom: 2rem;
         }
 
         .login-title {
-            font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 700;
-            color: var(--text-dark);
             margin-bottom: 0.5rem;
         }
 
         .login-subtitle {
-            color: var(--text-light);
             font-size: 1rem;
+            opacity: 0.8;
         }
 
         .form-group {
@@ -131,98 +112,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             position: relative;
         }
 
-        .form-label {
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-            display: block;
-            font-size: 0.95rem;
+        .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            opacity: 0.7;
+            pointer-events: none; /* Mencegah ikon menghalangi klik pada input */
         }
 
         .form-input {
             width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 1rem;
+            padding: 1rem 1rem 1rem 3.5rem;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 0.75rem;
+            color: var(--text-color);
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: var(--bg-white);
-            color: var(--text-dark);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
         .login-btn {
             width: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
             padding: 1rem;
+            background: var(--primary-color);
+            color: #ffffff;
             border: none;
-            border-radius: 1rem;
-            cursor: pointer;
+            border-radius: 0.75rem;
             font-size: 1.1rem;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .login-btn:hover {
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            background: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(-1px);
         }
 
         .error {
-            background: #fef2f2;
-            color: #dc2626;
+            background: rgba(255, 0, 0, 0.2);
+            color: #ffcccc;
             padding: 1rem;
-            border-radius: 1rem;
-            text-align: center;
+            border-radius: 0.75rem;
             margin-bottom: 1.5rem;
-            border: 1px solid #fecaca;
-            font-weight: 500;
-        }
-
-        .register-link {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-
-        .register-link a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .register-link a:hover {
-            color: var(--secondary-color);
-        }
-
-        @media (max-width: 576px) {
-            .login-container {
-                padding: 2rem;
-                margin: 1rem;
-            }
-            
-            .login-title {
-                font-size: 1.75rem;
-            }
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
     </style>
 </head>
@@ -230,39 +190,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="login-container">
     <div class="login-header">
-        <div class="login-icon">
-            <i class="bi bi-person-lock"></i>
-        </div>
         <h2 class="login-title">Selamat Datang</h2>
-        <p class="login-subtitle">Masuk ke akun Anda untuk melanjutkan</p>
+        <p class="login-subtitle">Masuk untuk mengakses dasbor Anda</p>
     </div>
     
-    <?php if (isset($error)) echo "<div class='error'><i class='bi bi-exclamation-triangle me-2'></i>$error</div>"; ?>
+    <?php if (isset($error)) : ?>
+        <div class='error'>
+            <i class='bi bi-exclamation-triangle-fill'></i>
+            <span><?= $error; ?></span>
+        </div>
+    <?php endif; ?>
     
     <form method="POST" action="">
         <div class="form-group">
-            <label for="username" class="form-label">Username</label>
-            <div style="position: relative;">
-                <i class="bi bi-person input-icon"></i>
-                <input type="text" name="username" id="username" class="form-input" required placeholder="Masukkan username Anda">
-            </div>
+            <i class="bi bi-person-fill input-icon"></i>
+            <input type="text" name="username" class="form-input" required placeholder="Username">
         </div>
 
         <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <div style="position: relative;">
-                <i class="bi bi-lock input-icon"></i>
-                <input type="password" name="password" id="password" class="form-input" required placeholder="Masukkan password Anda">
-            </div>
+            <i class="bi bi-lock-fill input-icon"></i>
+            <input type="password" name="password" class="form-input" required placeholder="Password">
         </div>
 
         <button type="submit" class="login-btn">
-            <i class="bi bi-box-arrow-in-right me-2"></i>Masuk
+            <i class="bi bi-box-arrow-in-right"></i>
+            <span>Masuk</span>
         </button>
-        
-        <div class="register-link">
-            Belum punya akun? <a href="register.php">Daftar sekarang</a>
-        </div>
     </form>
 </div>
 

@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Profil Siswa</title>
+  <title>Profil reporter</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="card shadow-lg mb-4">
         <div class="card-body text-center">
           <i class="bi bi-person-circle mb-3" style="font-size: 5rem; color:#0d6efd;"></i>
-          <h4 class="card-title">Profil Siswa</h4>
+          <h4 class="card-title">Profil Reporter</h4>
           <p class="card-text"><strong>Username:</strong> <?= $current_username; ?></p>
           <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#editForm">
             <i class="bi bi-pencil-square"></i> Edit Profil

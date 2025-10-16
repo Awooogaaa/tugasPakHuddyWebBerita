@@ -8,6 +8,10 @@ if (!isset($_GET['id'])) {
 }
 
 $id = intval($_GET['id']);
+
+// Menambahkan 1 view setiap kali berita dibuka
+mysqli_query($conn, "UPDATE berita SET views = views + 1 WHERE id_berita = $id");
+
 $result = mysqli_query($conn, "SELECT b.*, k.nama_kategori 
                                 FROM berita b 
                                 JOIN kategori k ON b.id_kategori = k.id_kategori 
@@ -100,9 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_komentar'])) {
         <?php } else { ?>
           <li class="nav-item">
               <a class="nav-link" href="login.php"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="register.php"><i class="bi bi-person-plus me-1"></i>Register</a>
           </li>
         <?php } ?>
       </ul>
